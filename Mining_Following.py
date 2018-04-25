@@ -55,8 +55,8 @@ def get_follower(file_line):
             print("current time: " + current_time)
             print("--------------------------")
             try:
-                results = api[select].followers_ids(user_id=ids , cursor = pointer)
-                file_complete = "follower/" + str(ids)
+                results = api[select].friends_ids(user_id=ids , cursor = pointer)
+                file_complete = "following/" + str(ids)
                 file_follow = open('%s.txt' % file_complete, 'a')
                 for follower in results[0]:
                     file_follow.write(str(follower) + str("\n"))
@@ -77,7 +77,7 @@ def get_follower(file_line):
                     wait += 1
                     time.sleep(60)
             except tweepy.TweepError as e:
-                file_error = open('data/error-follower.txt', 'a')
+                file_error = open('data/error-following.txt', 'a')
                 file_error.write(str(ids) + " " + str(e) + '\n')
                 file_error.close()
                 pointer = 0
@@ -88,7 +88,7 @@ def get_follower(file_line):
         count_complete += 1
         print("COMPLETE " + str(count_complete))
     print("TASK COMPLETE")
-    file_summary = open('data/summary-follower.txt', 'a')
+    file_summary = open('data/summary-following.txt', 'a')
     file_summary.write("SUCCESS:     " + str(count_complete-count_error)+'\n')
     file_summary.write("ERROR:     " + str(count_error)+'\n')
     file_summary.write("TOTAL:     " + str(count_total)+'\n')
