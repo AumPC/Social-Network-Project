@@ -1,21 +1,17 @@
 import glob
-import networkx as nx
-import matplotlib.pyplot as plt
 
-mahidolU_follower = [1403874758]
-G = nx.DiGraph()
-
+mahidolU_follower = []
 count = 0
 error_list = []
 
-with  open("data/mahidolU.txt") as f:
+with  open("data/MahidolU.txt") as f:
     for line in f:
         mahidolU_follower.append(line.rstrip('\n'))
 
 print(mahidolU_follower[:10])
 print("The number of MahidolU's follower : ", len(mahidolU_follower))
 
-f = open('data/error.txt', 'r')
+f = open('data/error-follower.txt', 'r')
 for line in f.readlines():
     error_list.append(line.strip('\n').split(' ')[0])
 
