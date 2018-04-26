@@ -36,7 +36,7 @@ for file_name in glob.glob('data/following/*'):
     followed_error = list(set(following) & set(error_list))
     for error_node in followed_error:
         f = open('data/clean_follower/' + error_node + '.txt', 'a')
-        f.write(file_name.split('\\')[1] + '\n')
+        f.write(file_name.split('\\')[1].strip('.txt') + '\n')
         f.close()
     print("Error node - finished " + str(count))
     count+=1
