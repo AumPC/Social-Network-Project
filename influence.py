@@ -28,40 +28,34 @@ for file in glob.glob('data/clean_follower/*'):
         print("read file mai dai")
 
 out_degree = G.out_degree()
-head_node = []
 RULE = 0.5
 S = []
-
-for file in glob.glob('data/clean_follower/*'):
-    current_node = file.strip('.txt').split('\\')[1]
-    head_node.append(current_node)
-
-not_S = head_node
+not_S = list(G.node())
 count = 0
+active = []
+best_node = 0
 
-while(S != not_S):
+for i in range(10):
+    best_node = 0
+    active = S
     max = 0
-    count = 0
-    in_active = {}
-    for node in mahidolU_follower:
-        in_active[node] = 0
     for not_node in not_S:
-        new_S = S + [not_node]
-        for node_S in new_S:
-            file = 'data/clean_follower/' + str(node_S) + '.txt'
-            with open(file) as f:
-                for follower in f:
-                    follower = follower.rstrip('\n')
-                    in_active[follower] = in_active[follower] + 1 
-        for node in not_S:
-            if out_degree[node] != 0:        
-                if (in_active[node] / out_degree[node]) >= RULE:
-                    count+=1
-        if count >= max:
-            new_node = node_S
+        active.append(not_node)
+        up = 1
+        while(up):
+            fact = 0
+            for node in list(G.node()):
+                all_neighbors = list(G.neighbors(node))
+                active_neighbors = list(set(list(all_neighbors)) & set(active))
+                if len(all_neighbors) != 0:
+                    if len(active_neighbors) / len(all_neighbors) >= RULE:
+                        active.append(node)
+                        fact = 1
+            if fact == 0:
+                up = 0
+        if len(active) > max:
+            max = len(active)
+            best_node = not_node
+        active = S
         print(S)
-    S.append(new_node)
-    not_S.remove(new_node)
-
-print(S)
-print(len(S))
+    S.append(best_node)
