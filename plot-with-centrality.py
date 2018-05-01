@@ -48,14 +48,24 @@ for id in in_degree:
 print(solo)
 print(count)
 x = nx.in_degree_centrality(G);
- #for key, value in sorted(x.items(), key=lambda item: (item[1], item[0])):
-    #print (key, ":", value)
+# print(x)
+for key, value in sorted(x.items(), key=lambda item: (item[1], item[0]), reverse=True):
+    print (str(key) + "," + str(value))
 
-y = nx.out_degree_centrality(G);
+def get_value(item):
+    return item[1]
+sorted_centrality = sorted(G.in_degree(), key=get_value, reverse=True)
+print(sorted_centrality)
+
+f = open('data/centrality.txt', 'a')
+for i in sorted_centrality:
+    f.write(str(i[0]) + "," + str(i[1]) + "\n")
+f.close()
+# y = nx.out_degree_centrality(G);
 #for key, value in sorted(y.items(), key=lambda item: (item[1], item[0])):
     #print (key, ":", value)
 
-z = nx.degree_centrality(G);
+# z = nx.degree_centrality(G);
 #for key, value in sorted(z.items(), key=lambda item: (item[1], item[0])):
     #print (key, ":", value)
 
