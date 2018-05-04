@@ -5,3 +5,4 @@
 
 ### Install Requirements Libs
   `pip install -r requirements.txt`
+  `pip install --upgrade vispy`
